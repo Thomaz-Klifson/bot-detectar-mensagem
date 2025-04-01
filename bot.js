@@ -3,6 +3,8 @@ const { useMultiFileAuthState } = require("@whiskeysockets/baileys");  // Import
 const qrcode = require("qrcode-terminal");
 const nodemailer = require("nodemailer");
 require('dotenv').config();  // Importando para carregar variáveis de ambiente do arquivo .env
+const express = require("express");
+const app = express();
 
 const PORT = process.env.PORT || 3000; // Use a porta do Heroku ou 3000 localmente
 app.listen(PORT, () => {
