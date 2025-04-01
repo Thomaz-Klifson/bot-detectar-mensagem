@@ -4,6 +4,11 @@ const qrcode = require("qrcode-terminal");
 const nodemailer = require("nodemailer");
 require('dotenv').config();  // Importando para carregar variáveis de ambiente do arquivo .env
 
+const PORT = process.env.PORT || 3000; // Use a porta do Heroku ou 3000 localmente
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
+
 async function enviarEmail(mensagem) {
     try {
         console.log("Tentando criar o transporter...");
