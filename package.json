@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "node bot.js"
+  },
   "dependencies": {
     "@whiskeysockets/baileys": "^6.17.16",
     "dotenv": "^16.4.7",
