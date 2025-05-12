@@ -76,7 +76,13 @@ async function iniciarBot() {
         else if (regexToledo.test(textoLower)) {
             console.log("Frase detectada: 'Toledo saiu da banda'");
 
-            const explicacao = `🎶 Olá! O Toledo saiu da banda por motivos pessoais relacionados a novos projetos profissionais e um desejo de explorar caminhos diferentes na música. Ele continua com muito carinho pelo grupo e pelos fãs. Obrigado por perguntar!`;
+            const explicacao = `O ex guitarrista do supercombo, Pedro Ramos (Toledo), foi desligado da banda.
+Aparentemente ele apareceu no Studio de ensaios, para gravação do novo álbum, bêbado e em posse de uma pistola. 
+Os colegas de banda se assustaram, incluindo, Paulo Vaz, que fez um twitter explicando a situação. 
+Na publicação diz que o músico apareceu bêbado e mostrou uma pistola para os seus colegas de banda. Continuou falando que ultimamente ele já havia demonstrado alguns comportamentos violentos por conta das críticas injustas que vinha recebendo, mas nunca algo nesse nível. 
+Eles não chegaram a chamar a polícia, mas foram falar com os empresários da banda que, decidiram pelo desligamento por. 
+Vaz ainda disse em seu twitter que o próprio Toledo foi na casa do Léo Ramos conversar com ele sobre a situação.
+Ele o questionou do porque Toledo ter levado uma pistola, prontamente negou dizendo que não levou. Léo então meteu a mão nas genitálias dele e perguntou: "E esse pistolão aqui?"`;
 
             await sock.sendMessage(msg.key.remoteJid, { text: explicacao }, { quoted: msg });
         }
