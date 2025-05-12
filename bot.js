@@ -1,14 +1,14 @@
 const makeWASocket = require("@whiskeysockets/baileys").default;
-const { useMultiFileAuthState } = require("@whiskeysockets/baileys"); 
+const { useMultiFileAuthState } = require("@whiskeysockets/baileys");
 const qrcode = require("qrcode-terminal");
 const nodemailer = require("nodemailer");
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
 
 async function enviarEmail(mensagem) {
@@ -60,17 +60,31 @@ async function iniciarBot() {
             text = msg.message.extendedTextMessage.text;
         }
 
-        if (text.toLowerCase().includes("meia estudante") || text.toLowerCase().includes("meia")) {
+        const textoLower = text.toLowerCase();
+
+        // Regex para identificar variações da pergunta sobre o Toledo
+        const regexToledo = /algu[eé]m.*(sabe|soube|saber|tem ideia|entendeu)?.*(toledo).*?(saiu|deixou|foi embora|não está|não faz parte|saiu da banda|fora da banda)/;
+
+        // Verifica se mencionaram "meia estudante"
+        if (textoLower.includes("meia estudante") || textoLower.includes("meia")) {
             console.log("Frase detectada: 'meia estudante'");
             const mensagem = `🚨 Alerta! Alguém disse "meia estudante" no grupo/conversa: ${msg.key.remoteJid}`;
-            
             await enviarEmail(mensagem);
+        }
+
+        // Verifica se perguntaram sobre o Toledo
+        else if (regexToledo.test(textoLower)) {
+            console.log("Frase detectada: 'Toledo saiu da banda'");
+
+            const explicacao = `🎶 Olá! O Toledo saiu da banda por motivos pessoais relacionados a novos projetos profissionais e um desejo de explorar caminhos diferentes na música. Ele continua com muito carinho pelo grupo e pelos fãs. Obrigado por perguntar!`;
+
+            await sock.sendMessage(msg.key.remoteJid, { text: explicacao }, { quoted: msg });
         }
     });
 
     sock.ev.on("connection.update", (update) => {
         const { connection, lastDisconnect, qr } = update;
-        
+
         if (qr) qrcode.generate(qr, { small: true });
 
         if (connection === "close") {
