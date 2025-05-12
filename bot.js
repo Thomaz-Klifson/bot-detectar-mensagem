@@ -63,7 +63,8 @@ async function iniciarBot() {
         const textoLower = text.toLowerCase();
 
         // Regex para identificar variações da pergunta sobre o Toledo
-        const regexToledo = /algu[eé]m.*(sabe|soube|saber|tem ideia|entendeu)?.*(toledo).*?(saiu|deixou|foi embora|não está|não faz parte|saiu da banda|fora da banda)/;
+        const regexToledo = /(?:algu[eé]m.*?(sabe|soube|saber|tem ideia|entendeu).*?)?(pq|porque|por que)?\s*o\s*toledo\s*(saiu|deixou|foi embora|não está|não faz parte|saiu da banda|tá fora|sumiu)/;
+
 
         // Verifica se mencionaram "meia estudante"
         if (textoLower.includes("meia estudante") || textoLower.includes("meia")) {
