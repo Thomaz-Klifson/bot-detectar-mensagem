@@ -7,6 +7,25 @@ const express = require("express");
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+
+const fs = require('fs');
+const path = require('path');
+
+// Verifica se está rodando no Render e recria o arquivo de autenticação
+if (process.env.CREDS_JSON_BASE64) {
+  const decoded = Buffer.from(process.env.CREDS_JSON_BASE64, 'base64').toString('utf8');
+
+  const authDir = path.join(__dirname, 'auth_info');
+  const credsPath = path.join(authDir, 'creds.json');
+
+  if (!fs.existsSync(authDir)) {
+    fs.mkdirSync(authDir);
+  }
+
+  fs.writeFileSync(credsPath, decoded);
+  console.log('Arquivo creds.json restaurado a partir de variável de ambiente.');
+}
+
 app.get("/", (req, res) => {
   res.send("Bot está online");
 });
